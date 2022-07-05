@@ -1,0 +1,107 @@
+/******************************************************************************
+
+Welcome to GDB Online.
+GDB online is an online compiler and debugger tool for C, C++, Python, Java, PHP, Ruby, Perl,
+C#, OCaml, VB, Swift, Pascal, Fortran, Haskell, Objective-C, Assembly, HTML, CSS, JS, SQLite, Prolog.
+Code, Compile, Run and Debug online from anywhere in world.
+
+*******************************************************************************/
+#include <iostream>
+using namespace std;
+struct datos{
+    char nombre[20];
+    int edad;
+    float peso;
+    int folio;
+}puntero;
+
+void ingreso();
+void cambio();
+void cambio_nombre();
+void cambio_edad();
+void cambio_peso();
+void cambio_folio();
+void muestra(int &);
+
+
+int main(){
+   int opc; 
+do{
+    cout<<"###### menu ######"<<endl;
+    cout<<"1- ingreso de usuarios"<<endl;
+    cout<<"2- cambio de nombre"<<endl;
+    cout<<"3- cambio de edad"<<endl;
+    cout<<"4- cambio de peso"<<endl;
+    cout<<"2- cambio de folio"<<endl;
+    
+    cin>>opc;
+    
+    switch(opc){
+        case 1:ingreso();
+        break;
+        case 2:cambio_nombre();
+        break;
+        case 3:cambio_edad();
+        break;
+        case 4:cambio_peso();
+        break;
+        case 5:cambio_folio();
+        
+    }
+    
+    
+}while(opc!=0);
+    
+    
+    
+  
+
+    return 0;
+}
+void ingreso(){
+  int n;
+  cin>>n;
+    cout<<"dato ingresado"<<endl;
+    for(int i=0;i<n;i++){
+        cout<<"ingresa el nombre";
+          cin>>puntero.nombre;
+           cout<<"ingresa la edad";
+            cin>>puntero.edad;
+             cout<<"ingresa el peso";
+              cin>>puntero.peso;
+               cout<<"ingresa el folio";
+                cin>>puntero.folio;
+    }
+    muestra(n);
+}
+
+void cambio_nombre(){
+    cout<<"ingresa el nuevo nombre:";
+    cin>>puntero.nombre;
+}
+
+void cambio_edad(){
+    cout<<"ingresa una nueva edad:";
+    cin>>puntero.edad;
+}
+
+void cambio_peso(){
+    cout<<"ingresa un nuevo peso";
+    cin>>puntero.peso;
+}
+
+void cambio_folio(){
+    cout<<"ingresa un nuevo folio";
+    cin>>puntero.folio;
+}
+
+
+void muestra(int w){
+    for(int i=0;i<w;i++){
+    cout<<puntero.nombre;   
+     cout<<puntero.edad; 
+      cout<<puntero.peso; 
+       cout<<puntero.folio; 
+    }
+    
+}
