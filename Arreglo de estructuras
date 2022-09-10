@@ -1,0 +1,99 @@
+#include <iostream>
+using namespace std;
+struct alumno{
+    int matricula;
+    char nombre[10];
+    int edad;
+    float promedio;
+};
+void ingreso(alumno*,int);
+void vista(alumno*,int);
+void modificar(alumno*,int);
+void eliminar(alumno*,int);
+int main(){
+	cout<<"cuantos datos va a ingresar?";
+	int T;
+	cin>>T;
+	alumno puntero[T];
+	int opc;
+	do{
+		cout<<"menu"<<endl;
+		cout<<"1 ingreso de datos "<<endl;
+		cout<<"2 mostrar datos"<<endl;
+		cout<<"3 modificar"<<endl;
+		cout<<"4 eliminar"<<endl;
+		cout<<"5 salir"<<endl;
+		cout<<"que opcio elige?:";
+		cin>>opc;
+		cout<<endl;
+		switch(opc){
+			case 1:ingreso(puntero,T);
+			break;
+			case 2:vista(puntero,T);
+			break;
+			case 3:modificar(puntero,T);
+			break;
+			case 4:eliminar(puntero,T);
+			break;
+			case 5:
+				break;
+		}
+	}while(opc!=5);
+	return 0;
+}
+
+void ingreso(alumno *puntero,int n){
+	for(int i=0;i<n;i++){
+		  cout<<"ingrese la matricula:";
+           cin>>puntero[i].matricula;
+          cout<<"ingrese el nombre:";
+           cin>>puntero[i].nombre;
+            cout<<"ingrese la edad:";
+             cin>>puntero[i].edad;
+             while(puntero[i].edad<=18 or puntero[i].edad>=99){
+             	cout<<"ingrese una edad valida:";
+             	cin>>puntero[i].edad;
+			 }
+             cout<<"ingrese la calificacion:";
+             cin>>puntero[i].promedio;
+             while(puntero[i].promedio<=0.0 or puntero[i].promedio>=10.0){
+             	cout<<"ingresa una calificacion valida:";
+             	cin>>puntero[i].promedio;
+			 }
+			 cout<<"alumno:"<<" "<<i<<endl;
+	}	
+}
+
+void vista(alumno *puntero,int a){
+	for(int j=0;j<a;j++){
+		cout<<"matricula:"<<" "<<puntero[j].matricula<<endl;
+		cout<<"nombre:"<<" "<<puntero[j].nombre<<endl;
+		cout<<"edad:"<<" "<<puntero[j].edad<<endl;
+		cout<<"calificacion:"<<" "<<puntero[j].promedio<<endl;
+	}
+}
+
+void modificar(alumno *puntero,int n){
+	int Matricula;
+	cout<<"que matricula desea modificar?";
+	cin>>Matricula;
+	for(int i=0;i<n;i++){
+		if(Matricula==puntero[i].matricula){
+			cout<<"nombre"<<" "<<puntero[i].nombre<<endl;
+			cout<<"ingresa la nueva matricula";
+			 cin>>puntero[i].matricula;
+		}
+	}
+}
+
+void eliminar(alumno *puntero,int n){
+	int Matricula;
+	cout<<"que matricula desea eliminar?";
+	cin>>Matricula;
+	for(int i=0;i<n;i++){
+		if(Matricula==puntero[i].matricula){
+			puntero[i].matricula=NULL;
+			cout<<"el dato se a eliminado";
+		}
+	}
+}
