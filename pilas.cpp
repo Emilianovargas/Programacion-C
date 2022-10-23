@@ -1,68 +1,79 @@
-#include <stdio.h>
-#include <stdlib.h>
-//*estructura de la pila*//
-struct Nodo{
-	int dia;
-    Nodo *siguiente;
+#include<iostream>
+using namespace std;
+struct Pila{
+	int numero;
+	Pila *siguiente;
 };
-//*prototipo para rellenar la pila*//
-void agregar_pila(Nodo *&,int);
-//*prototipo para sacar datos de la pila*//
-void sacar_pila(Nodo *&,int &);
-//prototipo para mostrar los datos de la pila//
-void mostrarPila(Nodo *&pila);
-int main (){
-	//*creamos un nodo el cual indica que la pila esta vacia*//
- Nodo *pila = NULL;	
- //ingreso de datos a la pila//
-	int n1,numeros,sacar_dia,sacar_elemento,buscar;
-	char respuesta;
-	printf("cuantos dias vas a ingresar a la pila?");
-	scanf("%d",&numeros);
-	printf("\n");
-	for(int i=0;i<numeros;i++){
-	printf("ingresa un numero para agregar a la pila:");//ingreso de datos a la pila//
-	scanf("%d",&n1);//lectura de datos para ingreso a la pila//
-	//funcion para agregar datos a la pila//
-	 agregar_pila(pila,n1);//llamada a la funcion pasando los parametros leidos//
-    }
-
-	//funcion para quitar datos de la pila//   
-    printf("quieres eliminar un dato de la pila? s/n:");
-    scanf(" %c",&respuesta);//respuesta para saber si se quiere eliminar un dato//
-    if(respuesta =='s'||respuesta =='S'){
-    	sacar_pila(pila,sacar_dia);//llamada a la funcion para aliminar el primer dato de la pila//
-	}
+void insertar();
+void visualizar();
+void eliminar();
+Pila *puntero,*aux;
+int main(){
 	
-	//funcion para mostrar datos de la pila//
-	 mostrarPila(pila);
-	 	 
+ int opc;
+    do{
+        cout<<"1. Insertar elemento "<<endl;
+        cout<<"2. Visualizar Pila "<<endl;
+        cout<<"3. Eliminar elemento "<<endl;
+        cout<<"4. Salir "<<endl;
+        cin>>opc;
+        switch(opc){
+            case 1:insertar();
+            break;
+            case 2:visualizar();
+            break;
+            case 3:eliminar();
+            break;
+            case 4:
+            break;
+        }
+    }while(opc!=4);
+	
 	return 0;
 }
-//funcion para rellenar la pila*//
-void agregar_pila(Nodo *&pila,int n){
-  Nodo *nuevo_nodo= new Nodo();
-   nuevo_nodo->dia = n;
-   nuevo_nodo->siguiente = pila;
-    pila= nuevo_nodo;
-    //imprime que el elemento ha sido guardado//
-  printf("el elemento ha sido agregado de correctamente a la pila");
-   printf("\n");
-  printf("\n");
+
+void insertar(){
+	if(puntero==NULL){
+	puntero=new Pila();
+	cout<<"introduzca un numero:";
+	cin>>puntero->numero;
+	puntero->siguiente=NULL;
+	return;
+	}
+	else{
+		aux=new Pila();
+		cout<<"introduzca un numero:";
+		cin>>aux->numero;
+		aux->siguiente=puntero;
+		puntero=aux;
+	}
 }
-//funcion para eliminar datos de la pila;
-void sacar_pila(Nodo *&pila,int &n){
-	Nodo *aux = pila;
-	n= aux->dia;
-	pila= aux->siguiente;
-	delete aux;
-    printf("el elemento %d ha sido removido exitosamente",n);
-    printf("\n");
+
+void visualizar(){
+	if(puntero==NULL){
+		cout<<"la pila esta vacia"<<endl;
+	}
+	else{
+		cout<<"mostrando pila"<<endl;
+		aux=puntero;
+		while(aux!=NULL){
+			cout<<aux->numero<<endl;
+			aux=aux->siguiente;
+		}
+	}
+	cout<<endl;
+	cout<<endl;
 }
-//funcion para mostrar la pila//
-void mostrarPila(Nodo *&pila){
-while(pila!=NULL){
-	printf("%d\n",pila->dia);
-	pila=pila->siguiente;
-}	
+
+
+void eliminar(){
+	if(puntero==NULL){cout<<"la pila esta vacia";}
+	else{
+		aux=new Pila();
+		aux=puntero;
+		cout<<"el dato "<<aux->numero<<" "<<"ha sido eliminado";
+		puntero=aux->siguiente;
+		delete(aux);
+	}
+	cout<<endl;
 }
