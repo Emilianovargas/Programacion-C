@@ -1,0 +1,221 @@
+#include <iostream>
+#include <string.h>
+using namespace std;
+
+struct nodo{
+	int folio;
+	string nombre;
+	int edad;
+	float promedio;
+	nodo* siguiente;
+	nodo* atras;
+} *primero, *ultimo;
+
+void insertarNodo();
+void buscarNodo();
+void desplegarListaPU();
+void desplegarListaUP();
+bool repetido(nodo *);
+void insert_izq();
+void isert_dere();
+int main(){
+
+	int opc;
+	do
+	{
+		cout<<"1. Insertar elemento "<<endl;
+        cout<<"2. Buscar "<<endl;
+        cout<<"3. Modificar "<<endl;
+        cout<<"4. Eliminar "<<endl;
+        cout<<"5. Mostrar lista primero al ultimo "<<endl;
+        cout<<"6. Mostrar lista de ultimo al primero "<<endl;
+        cout<<"7. salir del programa";
+		cout << "\n\n Escoja una Opcion: ";
+		cin >> opc;
+		switch(opc){
+		case 1:
+			cout << "\n\n INSERTA NODO EN LA LISTA \n\n";
+			insertarNodo();
+			break;
+		case 2:
+			cout << "\n\n BUSCAR UN NODO EN LA LISTA \n\n";
+			buscarNodo();
+			break;
+		case 3:
+			cout << "\n\n MODIFICAR UN NODO DE LA LISTA \n\n";
+			break;
+		case 4:
+			cout << "\n\n ELIMINAR UN NODO DE LA LISTA \n\n";
+			break;
+		case 5: 
+			cout << "\n\n DESPLEGAR LISTA DE NODOS DEL PRIMERO AL UTLIMO\n\n";
+			desplegarListaPU();
+			break;
+		case 6:
+			cout << "\n\n DESPLEGAR LISTA DE NODOS DEL UTLIMO AL PRIMERO\n\n";
+			desplegarListaUP();
+			break;
+		case 7:
+			cout << "\n\n Programa finalizado...";
+			break;
+		default:
+			cout << "\n\n Opcion No Valida \n\n";
+		}
+	} while (opc != 7);	
+	return 0;
+}
+
+void insertarNodo(){
+	nodo* nuevo = new nodo();
+	cout << " Ingrese el folio: ";
+	cin >> nuevo->folio;
+	    while(repetido(nuevo)){
+           	  cout<<"folio repetido, ingrese un nuevo folio:";
+           	  cin>>nuevo->folio;
+		   }
+	cout << " Ingrese el nombre: ";
+	cin >> nuevo->nombre;
+	cout << " Ingrese la edad: ";
+	cin >> nuevo->edad;
+	while(nuevo->edad<=18 or nuevo->edad>=99){
+          cout<<"ingrese una edad valida:";
+          cin>>nuevo->edad;
+	}   
+	cout << " Ingrese el promedio: ";
+	cin >> nuevo->promedio;
+	while(nuevo->promedio<=0.0 or nuevo->promedio>=10.0){
+          cout<<"ingresa una calificacion valida:";
+          cin>>nuevo->promedio;
+		  }
+	if(primero==NULL){
+		primero = nuevo;
+		primero->siguiente = NULL;
+		primero->atras = NULL;
+		ultimo = primero;
+	}else{
+		ultimo->siguiente = nuevo;
+		nuevo->siguiente = NULL;
+		nuevo->atras = ultimo;
+		ultimo = nuevo;
+	}
+	cout << "\n Nodo Ingresado\n\n";
+}
+
+void buscarNodo(){
+	nodo* actual = new nodo();
+	actual = primero;
+	bool encontrado = false;
+	int nodoBuscado = 0;
+	cout << " Ingrese el folio a buscar: ";
+	cin >> nodoBuscado;
+	if(primero!=NULL){
+		
+		while(actual!=NULL && encontrado!=true){
+			
+			if(actual->folio == nodoBuscado){
+				cout << "\n Nodo con el dato ( " << nodoBuscado << " ) Encontrado\n\n";
+				cout<<"que desea modificar?"<<endl;
+	            cout<<"1 cambiar nombre"<<endl;
+                cout<<"2 cambiar edad"<<endl;
+                cout<<"3 cambiar promedio"<<endl;
+                cout<<"4 cambiar folio"<<endl;
+                int op;
+                cin>>op;
+                   switch(op){
+            	         case 1:cout<<"introduzca el nuevo nombre:";
+            	              cin>>actual->nombre;
+				         break;
+				         case 2:	cout<<"introduzca la nueva edad:";
+            	                cin>>actual->edad; 
+					          while(actual->edad<=18 or actual->edad>=99){
+             	                   cout<<"ingrese una edad valida:";
+             	                   cin>>actual->edad;
+			                       }   
+            	                break;
+                      	case 3:cout<<"introduzca el nuevo promedio:";
+            	               cin>>actual->promedio;
+            	              while(actual->promedio<=0.0 or actual->promedio>=10.0){
+             	                   cout<<"ingresa una calificacion valida:";
+             	                   cin>>actual->promedio;
+			                       }
+            	                break;
+            	            case 4:cout<<"introduzca el nuevo folio:";
+            	                   cin>>actual->folio;
+            	                    break;       
+			        }
+				
+				
+				
+				encontrado = true;
+			}
+			
+			actual = actual->siguiente;
+		}
+		
+		if(!encontrado){
+			cout << "\n folio no encontrado\n\n";
+		}
+		
+	}else{
+		cout << "\n la lista esta vacia \n\n";
+	}
+}
+
+void desplegarListaPU(){
+	nodo* actual = new nodo();
+	actual = primero;
+	if(primero!=NULL){
+		
+		while(actual!=NULL){
+			cout << "\n " << actual->folio; 
+			cout << "\n " << actual->nombre; 
+			cout << "\n " << actual->edad; 
+			cout << "\n " << actual->promedio<<endl; 
+			actual = actual->siguiente;
+		}
+		
+	}else{
+		cout << "\n la lista esta vacia \n\n";
+	}
+}
+
+void desplegarListaUP(){
+	nodo* actual = new nodo();
+	actual = ultimo;
+	if(primero!=NULL){
+		
+		while(actual!=NULL){
+			cout << "\n " << actual->folio; 
+			cout << "\n " << actual->nombre; 
+			cout << "\n " << actual->edad; 
+			cout << "\n " << actual->promedio<<endl;
+			actual = actual->atras;
+		}
+		
+	}else{
+		cout << "\n la lista esta vacia \n\n";
+	}
+}
+
+bool repetido(nodo *Repetido){
+		nodo *actual = new nodo();
+	 actual=primero;
+	if(primero !=NULL){
+		while(actual !=NULL){
+			if(actual->folio==Repetido->folio){
+	           return true;
+		    actual=actual->siguiente;
+			}
+			else{
+				actual=actual->siguiente;
+			}
+		}
+	}
+	else{cout<<endl;cout<<" "<<endl;}
+	return false;	
+}
+
+void isert_dere(){
+	
+}
+
