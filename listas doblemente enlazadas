@@ -16,8 +16,7 @@ void buscarNodo();
 void desplegarListaPU();
 void desplegarListaUP();
 bool repetido(nodo *);
-void insert_izq();
-void isert_dere();
+void eliminarNodo();
 int main(){
 
 	int opc;
@@ -45,7 +44,8 @@ int main(){
 			cout << "\n\n MODIFICAR UN NODO DE LA LISTA \n\n";
 			break;
 		case 4:
-			cout << "\n\n ELIMINAR UN NODO DE LA LISTA \n\n";
+		    cout << "\n\n ELIMINAR UN NODO DE LA LISTA \n\n";
+	     	 eliminarNodo();
 			break;
 		case 5: 
 			cout << "\n\n DESPLEGAR LISTA DE NODOS DEL PRIMERO AL UTLIMO\n\n";
@@ -167,10 +167,10 @@ void desplegarListaPU(){
 	if(primero!=NULL){
 		
 		while(actual!=NULL){
-			cout << "\n " << actual->folio; 
-			cout << "\n " << actual->nombre; 
-			cout << "\n " << actual->edad; 
-			cout << "\n " << actual->promedio<<endl; 
+			cout << "\n " <<"folio:"<< actual->folio; 
+			cout << "\n " <<"nombre:"<< actual->nombre; 
+			cout << "\n " <<"edad:"<<actual->edad; 
+			cout << "\n " <<"promedio"<<actual->promedio<<endl; 
 			actual = actual->siguiente;
 		}
 		
@@ -185,13 +185,12 @@ void desplegarListaUP(){
 	if(primero!=NULL){
 		
 		while(actual!=NULL){
-			cout << "\n " << actual->folio; 
-			cout << "\n " << actual->nombre; 
-			cout << "\n " << actual->edad; 
-			cout << "\n " << actual->promedio<<endl;
+		cout << "\n " <<"folio:"<< actual->folio; 
+			cout << "\n " <<"nombre:"<< actual->nombre; 
+			cout << "\n " <<"edad:"<<actual->edad; 
+			cout << "\n " <<"promedio"<<actual->promedio<<endl; 
 			actual = actual->atras;
 		}
-		
 	}else{
 		cout << "\n la lista esta vacia \n\n";
 	}
@@ -215,7 +214,46 @@ bool repetido(nodo *Repetido){
 	return false;	
 }
 
-void isert_dere(){
-	
+void eliminarNodo(){
+	nodo* actual = new nodo();
+	actual = primero;
+	nodo* anterior = new nodo();
+	anterior = NULL;
+	bool encontrado = false;
+	int buscar_folio;
+	cout << " Ingrese el folio a eliminar : ";
+	cin >> buscar_folio;
+	if(primero!=NULL){
+		
+		while(actual!=NULL && encontrado!=true){
+			
+			if(actual->folio == buscar_folio){
+				cout << "\n Nodo con el dato ( " << buscar_folio << " ) Encontrado";
+				
+				if(actual==primero){
+					primero = primero->siguiente;
+					primero->atras = NULL;
+				}else if(actual==ultimo){
+					anterior->siguiente = NULL;
+					ultimo = anterior;
+				}else{
+					anterior->siguiente = actual->siguiente;
+					actual->siguiente->atras = anterior;
+				}
+				
+				cout << "\n Nodo Eliminado";
+				encontrado = true;
+			}
+			anterior = actual;
+			actual = actual->siguiente;
+		}
+		
+		if(!encontrado){
+			cout << "\n Nodo no Encontrado\n\n";
+		}
+		
+	}else{
+		cout << "\n La listas se encuentra Vacia\n\n";
+	}
 }
 
